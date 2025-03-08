@@ -5,7 +5,9 @@ import Image from "next/image";
 import { useState } from "react";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 import DropdownMenu from "@/components/DropdownMenu";
-import Navbar from "@/components/Navbar";
+// import Navbar from "@/components/Navbar";
+import Navbar from '../../components/Navbar';
+
 
 export default function Home() {
 
