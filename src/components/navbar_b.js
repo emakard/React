@@ -1,6 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from 'next/link';
+
+// Inside your Navbar component:
+{/* <Link href="/">
+  <a>Home</a>
+</Link> */}
+
 
 export default function Navbar() {
   const router = useRouter();
@@ -217,33 +224,33 @@ export default function Navbar() {
         {/* Mega Dropdown (Full-Screen Width & Height) */}
         {dropdownOpen && (
           <div
-            ref={menuRef}
-            className="absolute top-full left-0 w-full h-[550px] bg-white shadow-lg p-6 z-50 flex"
-            onMouseLeave={() => setDropdownOpen(false)}
-          >
-            {/* Left: Scrollable Categories */}
-            <div className="w-1/4 border-r overflow-y-auto max-h-[480px] p-4">
-              {categories.map((category, index) => (
-                <div
-                  key={index}
-                  onClick={() => setActiveCategory(category)}
-                  className={`p-2 text-gray-800 cursor-pointer hover:bg-gray-200 ${
-                    activeCategory === category ? "bg-gray-300 font-bold" : ""
-                  }`}
-                >
-                  {category}
-                </div>
-              ))}
-            </div>
-
-            {/* Right: Courses Grid (3 Columns) */}
-            <div className="w-3/4 pl-4 grid grid-cols-3 gap-6 max-h-[480px] overflow-y-auto">
+          ref={menuRef}
+          className="absolute top-full left-0 w-full h-[550px] bg-white shadow-xl rounded-lg p-6 z-50 flex"
+          onMouseLeave={() => setDropdownOpen(false)}
+        >
+          {/* Left: Scrollable Categories */}
+          <div className="w-1/4 border-r overflow-y-auto max-h-[480px] p-4">
+            {categories.map((category, index) => (
+              <div
+                key={index}
+                onClick={() => setActiveCategory(category)}
+                className={`p-2 text-gray-800 cursor-pointer hover:bg-gray-200 transition-all duration-200 ease-in-out ${
+                  activeCategory === category ? "bg-gray-300 font-bold" : ""
+                }`}
+              >
+                {category}
+              </div>
+            ))}
+          </div>
+        
+          {/* Right: Courses Grid (3 Columns) */}
+          <div className="w-3/4 pl-4 grid grid-cols-3 gap-6 max-h-[480px] overflow-y-auto">
             {courses[activeCategory]?.map((course, index) => (
               <div
                 key={index}
-                className="bg-gray-100 p-4 rounded-lg shadow-md flex flex-col justify-between min-h-[150px]" // Set a minimum height for the cards
+                className="bg-gray-100 p-4 rounded-xl shadow-lg flex flex-col justify-between min-h-[150px] transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-xl"
               >
-                <h4 className="font-semibold">{course.title}</h4>
+                <h4 className="font-semibold text-lg">{course.title}</h4>
                 <p className="text-sm text-gray-600">{course.duration}</p>
                 {course.badge && (
                   <span
@@ -261,8 +268,8 @@ export default function Navbar() {
               </div>
             ))}
           </div>
-
-          </div>
+        </div>
+        
         )}
 
         {/* Buttons */}
