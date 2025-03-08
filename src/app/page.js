@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 import DropdownMenu from "@/components/DropdownMenu";
-import Navbar from "@/components/navbar";
+import Navbar  from "@/components/navbar";
 // import Navbar from '../components/navbar';
 
 
@@ -47,7 +47,7 @@ export default function Home() {
       <section className="bg-gray-200 py-16 text-center px-6">
         <h2 className="text-3xl font-bold">What Our Students Say</h2>
         <p className="max-w-4xl mx-auto mt-4 text-gray-700">
-          "This bootcamp changed my life! I landed a tech job within 3 months of graduating."
+        &quot;This bootcamp changed my life! I landed a tech job within 3 months of graduating.&quot;
         </p>
         <p className="mt-2 font-semibold">- Alex Johnson, Software Engineer</p>
       </section>
