@@ -1,9 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import Navbar  from "@/components/navbar";
+
 
 export default function ApplyForm() {
   return (
+
+    <div>
+      {/* Navbar outside the container to take full width */}
+      <Navbar className="w-full mb-10" />
+
+
     <div className="h-screen">
       {/* Top Light Background Section with Strategism Logo */}
       {/* <section className="bg-gray-100 h-1/2 flex justify-center items-center">
@@ -91,6 +99,7 @@ export default function ApplyForm() {
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 }

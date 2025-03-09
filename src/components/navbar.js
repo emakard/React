@@ -10,9 +10,21 @@ import Link from 'next/link';
 
 
 export default function Navbar() {
+
+
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState("Generative AI");
+
+  const menuItems = [
+    { name: "AI BOOTCAMP", href: "/ai-bootcamp" },  // ✅ Now links to the new page
+    { name: "COURSES", href: "/courses" },
+    { name: "RESOURCES", href: "/resources" },
+    { name: "TUITION & DATES", href: "/tuition-dates" },
+    { name: "ABOUT", href: "/about" },
+    { name: "ENTERPRISE", href: "/enterprise" },
+  ];
+  
 
   const categories = [
     "Generative AI", "AI & Machine Learning", "Data Science & Business Analytics", "Project Management",
@@ -20,14 +32,7 @@ export default function Navbar() {
     "Business and Leadership", "Software Development", "Product and Design", "Quality Management", "Digital Marketing"
   ];
 
-  const menuItems = [
-    { name: "PROGRAMS" },
-    { name: "COURSES" },
-    { name: "RESOURCES" },
-    { name: "TUITION & DATES" },
-    { name: "ABOUT" },
-    { name: "ENTERPRISE" },
-  ];
+
 
   const courses = {
     "Generative AI": [
@@ -200,6 +205,7 @@ export default function Navbar() {
   }, [dropdownOpen]);
 
   return (
+    
     <nav className="bg-white shadow-md p-4">
       <div className="container mx-auto flex justify-between items-center relative">
         {/* Logo */}
@@ -216,7 +222,9 @@ export default function Navbar() {
               className="relative cursor-pointer hover:text-red-600"
               onMouseEnter={() => item.name === "COURSES" && setDropdownOpen(true)}
             >
+              <Link href={item.href} className="hover:text-yellow-400 transition">
               {item.name}
+            </Link>
             </li>
           ))}
         </ul>
