@@ -23,7 +23,7 @@ export default function ApplyForm() {
       </section> */}
 
       {/* Bottom Dark Background Section with Start Your Application Text */}
-      <section className="bg-gray-900 text-white h-1/2 flex justify-center items-center">
+      <section className="bg-gray-900 text-white py-12 flex justify-center items-center">
         <h2 className="text-4xl font-bold">Start Your Application</h2>
       </section>
 
