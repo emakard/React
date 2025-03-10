@@ -200,19 +200,19 @@ export default function Navbar() {
   }, [dropdownOpen]);
 
   return (
-    <nav className="bg-white shadow-md p-4">
+    <nav className="bg-white shadow-md p-4 fixed top-0 w-full z-50">
       <div className="container mx-auto flex justify-between items-center relative">
+        
         {/* Logo */}
         <div className="flex items-center">
           <Image src="/strategism-logo.png" alt="Strategism" width={150} height={50} />
         </div>
 
-        {/* Main Menu */}
-        <ul className="flex space-x-6 text-sm font-semibold uppercase relative">
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex space-x-6 text-sm font-semibold uppercase relative">
           {menuItems.map((item, index) => (
             <li
               key={index}
-              ref={item.name === "COURSES" ? coursesRef : null}
               className="relative cursor-pointer hover:text-red-600"
               onMouseEnter={() => item.name === "COURSES" && setDropdownOpen(true)}
             >
@@ -221,59 +221,79 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Mega Dropdown (Full-Screen Width & Height) */}
+        {/* Mobile Menu Button */}
+        <button className="md:hidden text-gray-700 text-2xl" onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </button>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="absolute top-full left-0 w-full bg-white shadow-lg md:hidden">
+            <ul className="text-center py-4">
+              {menuItems.map((item, index) => (
+                <li
+                  key={index}
+                  className="py-3 text-gray-800 cursor-pointer hover:bg-gray-200"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Mega Dropdown */}
         {dropdownOpen && (
           <div
-          ref={menuRef}
-          className="absolute top-full left-0 w-full h-[550px] bg-white shadow-xl rounded-lg p-6 z-50 flex"
-          onMouseLeave={() => setDropdownOpen(false)}
-        >
-          {/* Left: Scrollable Categories */}
-          <div className="w-1/4 border-r overflow-y-auto max-h-[480px] p-4">
-            {categories.map((category, index) => (
-              <div
-                key={index}
-                onClick={() => setActiveCategory(category)}
-                className={`p-2 text-gray-800 cursor-pointer hover:bg-gray-200 transition-all duration-200 ease-in-out ${
-                  activeCategory === category ? "bg-gray-300 font-bold" : ""
-                }`}
-              >
-                {category}
-              </div>
-            ))}
+            className="absolute top-full left-0 w-full bg-white shadow-xl p-6 z-50 flex flex-col md:flex-row"
+            onMouseLeave={() => setDropdownOpen(false)}
+          >
+            {/* Left: Categories */}
+            <div className="w-full md:w-1/4 border-b md:border-b-0 md:border-r overflow-y-auto max-h-[480px] p-4">
+              {categories.map((category, index) => (
+                <div
+                  key={index}
+                  onClick={() => setActiveCategory(category)}
+                  className={`p-2 text-gray-800 cursor-pointer hover:bg-gray-200 transition-all duration-200 ${
+                    activeCategory === category ? "bg-gray-300 font-bold" : ""
+                  }`}
+                >
+                  {category}
+                </div>
+              ))}
+            </div>
+
+            {/* Right: Courses */}
+            <div className="w-full md:w-3/4 pl-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[480px] overflow-y-auto">
+              {courses[activeCategory]?.map((course, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-100 p-4 rounded-xl shadow-lg flex flex-col justify-between min-h-[150px] transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-xl"
+                >
+                  <h4 className="font-semibold text-lg">{course.title}</h4>
+                  <p className="text-sm text-gray-600">{course.duration}</p>
+                  {course.badge && (
+                    <span
+                      className={`mt-2 inline-block px-3 py-1 text-xs rounded-full ${
+                        course.badge === "Most Popular"
+                          ? "bg-orange-500 text-white"
+                          : course.badge === "Trending Now"
+                          ? "bg-green-500 text-white"
+                          : "bg-gray-400 text-white"
+                      }`}
+                    >
+                      {course.badge}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        
-          {/* Right: Courses Grid (3 Columns) */}
-          <div className="w-3/4 pl-4 grid grid-cols-3 gap-6 max-h-[480px] overflow-y-auto">
-            {courses[activeCategory]?.map((course, index) => (
-              <div
-                key={index}
-                className="bg-gray-100 p-4 rounded-xl shadow-lg flex flex-col justify-between min-h-[150px] transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-xl"
-              >
-                <h4 className="font-semibold text-lg">{course.title}</h4>
-                <p className="text-sm text-gray-600">{course.duration}</p>
-                {course.badge && (
-                  <span
-                    className={`mt-2 inline-block px-3 py-1 text-xs rounded-full ${
-                      course.badge === "Most Popular"
-                        ? "bg-orange-500 text-white"
-                        : course.badge === "Trending Now"
-                        ? "bg-green-500 text-white"
-                        : "bg-gray-400 text-white"
-                    }`}
-                  >
-                    {course.badge}
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-        
         )}
 
         {/* Buttons */}
-        <div className="flex space-x-3">
+        <div className="hidden md:flex space-x-3">
           <button className="border px-4 py-2 text-sm font-bold">SIGN UP</button>
           <button
             onClick={() => router.push("/applyform")}
